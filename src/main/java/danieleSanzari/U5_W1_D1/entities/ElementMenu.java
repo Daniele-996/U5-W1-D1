@@ -3,8 +3,10 @@ package danieleSanzari.U5_W1_D1.entities;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.stereotype.Component;
 
+@ToString
 @Getter
 @Setter
 @AllArgsConstructor

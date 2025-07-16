@@ -1,16 +1,19 @@
 package danieleSanzari.U5_W1_D1;
 
 import danieleSanzari.U5_W1_D1.entities.*;
+import danieleSanzari.U5_W1_D1.enums.StatusOrdine;
 import danieleSanzari.U5_W1_D1.enums.StatusTavolo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.PropertySource;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
+@PropertySource("application.properties")
 public class ConfigClass {
     public List<Topping> toppings = new ArrayList<>();
 
@@ -85,8 +88,12 @@ public class ConfigClass {
 
     @Bean
     public Tavolo getTavolo(@Value("${costo.coperto}") double costoCoperto) {
-        List<Ordine> ordini = new ArrayList<>();
-        return new Tavolo(2, 10, StatusTavolo.OCCUPATO, ordini);
+        List<ElementMenu> elementMenu = new ArrayList<>();
+        elementMenu.add(getDrinkSprite());
+        elementMenu.add(getPizzaMargherita());
+        elementMenu.add(getToppingBufala());
+        Ordine ordine = new Ordine(4, StatusOrdine.PRONTO, 6, 15.30, elementMenu);
+        return new Tavolo(2, ordine.getNumeroCoperti(), StatusTavolo.OCCUPATO, ordine);
     }
 
 
